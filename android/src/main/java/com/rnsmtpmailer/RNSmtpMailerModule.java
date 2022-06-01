@@ -105,17 +105,25 @@ class MailSender extends javax.mail.Authenticator {
 
         Properties props = new Properties();
         props.setProperty("mail.transport.protocol", "smtp");
-        props.setProperty("mail.host", mailhost);
+        props.setProperty("mail.smtp.host", mailhost);
         props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
         props.put("mail.smtp.port", port);
         props.put("mail.smtp.socketFactory.port", port);
-        if (ssl) {
-            props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        } else {
-            props.put("mail.smtp.starttls.enable", "true");
-        }
-        props.put("mail.smtp.socketFactory.fallback", "false");
-        props.setProperty("mail.smtp.quitwait", "false");
+        
+        // props.setProperty("mail.transport.protocol", "smtp");
+        // props.setProperty("mail.host", mailhost);
+        // props.put("mail.smtp.auth", "true");
+        // props.put("mail.smtp.port", port);
+        // props.put("mail.smtp.socketFactory.port", port);
+        // if (ssl) {
+        //     props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        // } else {
+        //     props.put("mail.smtp.starttls.enable", "true");
+        // }
+        // props.put("mail.smtp.socketFactory.fallback", "false");
+        // props.setProperty("mail.smtp.quitwait", "false");
 
         session = Session.getDefaultInstance(props, this);
     }
